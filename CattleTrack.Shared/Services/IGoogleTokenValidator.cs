@@ -1,11 +1,10 @@
 using System.Threading.Tasks;
-using System.IdentityModel.Tokens;
-
+using System.IdentityModel.Tokens.Jwt;
 
 namespace CattleTrack.Shared.Services
 {
   public interface IGoogleTokenService
   {
-    public Task<JwtSecurityToken> ValidateToken();
+    Task<JwtSecurityToken> ValidateToken(string AccessToken);
   }
 }

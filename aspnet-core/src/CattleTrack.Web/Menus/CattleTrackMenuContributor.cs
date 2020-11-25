@@ -8,27 +8,20 @@ using Volo.Abp.UI.Navigation;
 
 namespace CattleTrack.Web.Menus
 {
-    public class CattleTrackMenuContributor : IMenuContributor
+  public class CattleTrackMenuContributor : IMenuContributor
+  {
+    public async Task ConfigureMenuAsync(MenuConfigurationContext context)
     {
-        public async Task ConfigureMenuAsync(MenuConfigurationContext context)
-        {
-            if (context.Menu.Name == StandardMenus.Main)
-            {
-                await ConfigureMainMenuAsync(context);
-            }
-        }
-
-        private async Task ConfigureMainMenuAsync(MenuConfigurationContext context)
-        {
-            if (!MultiTenancyConsts.IsEnabled)
-            {
-                var administration = context.Menu.GetAdministration();
-                administration.TryRemoveMenuItem(TenantManagementMenuNames.GroupName);
-            }
-
-            var l = context.GetLocalizer<CattleTrackResource>();
-
-            context.Menu.Items.Insert(0, new ApplicationMenuItem(CattleTrackMenus.Home, l["Menu:Home"], "~/"));
-        }
+      if (context.Menu.Name == StandardMenus.Main)
+      {
+        await ConfigureMainMenuAsync(context);
+      }
     }
+
+    private async Task ConfigureMainMenuAsync(MenuConfigurationContext context)
+    {
+      var l = context.GetLocalizer<CattleTrackResource>();
+      context.Menu.Items.Insert(0, new ApplicationMenuItem(CattleTrackMenus.Home, l["Menu:Home"], "~/"));
+    }
+  }
 }
